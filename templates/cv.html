@@ -1,0 +1,134 @@
+<!-- resume.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cv</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    img {
+      max-width: 200px;
+      height: auto;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .experience,
+    .education {
+      margin-bottom: 20px;
+    }
+
+    .experience-item,
+    .education-item {
+      margin-bottom: 10px;
+    }
+
+    .item-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .item-subtitle {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="{% static 'profile_picture.jpg' %}" alt="Profile Picture">
+
+    <h1>{{ person.first_name }} {{ person.last_name }}</h1>
+    <p>{{ person.age }} years old {{ person.gender }}</p>
+    <p>Contact Info: {{ person.email }} | {{ person.phone }}</p>
+    <p>Address: {{ person.address }}</p>
+
+    <div class="section">
+      <h2 class="section-title">About Me</h2>
+      <p>{{ person.about }}</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience">
+        {% for experience in experience_list %}
+        <div class="experience-item">
+            {% if experience.city and experience.country %}
+            <div class="item-title">{{ experience.company }} | {{ experience.city }}, {{ experience.country }}</div>
+            {% else %}
+            <div class="item-title">{{ experience.company }} </div>
+            {% endif %}
+          <div class="item-subtitle">{{ experience.position }}</div>
+            {% if experience.end_date %}
+          <div class="item-subtitle">{{ experience.start_date }} - {{ experience.end_date }}</div>
+            {% else %}
+          <div class="item-subtitle">{{ experience.start_date }} - present</div>
+            {% endif %}
+          <p>{{  experience.description }}</p>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Education</h2>
+      <div class="education">
+       {% for education in education_list %}
+        <div class="education-item">
+            {% if education.city and education.country %}
+            <div class="item-title">{{ education.institution }} | {{ education.city }}, {{ education.country }}</div>
+            {% else %}
+            <div class="item-title">{{ education.level }} | {{ education.institution }} </div>
+            {% endif %}
+          <div class="item-subtitle">{{ education.position }}</div>
+            {% if education.end_date %}
+          <div class="item-subtitle">{{ education.start_date }} - {{ education.end_date }}</div>
+            {% else %}
+          <div class="item-subtitle">{{ education.start_date }} - present</div>
+            {% endif %}
+          <p>{{  education.description }}</p>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+
+  <div class="section">
+      <h2 class="section-title">Achievements</h2>
+      <div class="education">
+       {% for achievement in achievement_list %}
+        <div class="education-item">
+            <div class="item-title">{{ achievement.title }} </div>
+          <div class="item-subtitle">{{ achievement.year }} </div>
+          <p>{{  education.description }}</p>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
